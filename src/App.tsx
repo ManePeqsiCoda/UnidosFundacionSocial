@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, ReactNode, useState } from 'react';
-import { LineChart, Line, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
+import React, { useEffect, ReactNode, useState, useRef } from 'react';
+import { LineChart, Line, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, AreaChart, Area, ComposedChart, Legend } from 'recharts';
 import { Activity, Sparkles, Lock, Users, Award, Shield, Package, Target, TrendingUp, CheckCircle, MapPin, ArrowUpRight, Download, X, FileText, BarChart2, MessageSquare, Mail, Info, ArrowLeft, Loader2, Search, RefreshCw, Bell, ChevronRight, Zap, LogOut, Menu, Radio, AlertCircle, Clock, Calendar, Building2, Phone, ShoppingCart, Star, StarHalf, Send, Globe, FileCheck, Briefcase, Truck } from 'lucide-react';
 
 const DESIGN_TOKENS = {
@@ -874,7 +874,7 @@ const EventosSection = ({ onCtaClick }: any) => {
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(197,160,89,0.1)', padding: '6px 16px', borderRadius: '9999px', marginBottom: '16px' }}>
             <Calendar size={16} color="#C5A059" />
-            <span style={{ color: '#C5A059', fontSize: '12px', fontWeight: 800, letterSpacing: '0.05em' }}>PORTAFOLIO DE EVENTOS · 2023–2025</span>
+            <span style={{ color: '#C5A059', fontSize: '12px', fontWeight: 800, letterSpacing: '0.05em' }}>PORTAFOLIO DE EVENTOS · 2023–2026</span>
           </div>
           <h2 style={{ color: '#002147', fontSize: '36px', fontWeight: 800, letterSpacing: '-0.02em', margin: '0 0 16px 0' }}>
             Eventos que Transforman Boyacá
@@ -1275,7 +1275,7 @@ const CoberturaSection = ({ onCtaClick }: any) => {
           </div>
           <button 
             className="btn-primary" 
-            onClick={() => window.alert("Gracias por su interés. Un asesor le contactará pronto. ☎️")} 
+            onClick={() => document.getElementById('sec-contacto')?.scrollIntoView({ behavior: 'smooth' })} 
             style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', borderRadius: '8px', border: 'none', color: '#00163A', fontWeight: 700, fontSize: '15px', cursor: 'pointer', transition: 'all 0.2s ease' }}>
             Iniciar Contacto <ArrowUpRight size={18} />
           </button>
@@ -1655,7 +1655,7 @@ const CatalogoPublicoSection = ({ filtro, setFiltro, setProductoModal, setModalC
         <div style={{ textAlign: 'center', marginTop: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
            <div style={{ color: '#6B7280', fontSize: '14px', fontWeight: 600 }}>¿Necesita algo que no está en la lista?</div>
            <button
-              onClick={() => onCtaClick && onCtaClick()}
+              onClick={() => document.getElementById('sec-contacto')?.scrollIntoView({ behavior: 'smooth' })}
               style={{
                  border: '1px solid #C5A059', background: 'transparent', color: '#002147',
                  padding: '10px 24px', borderRadius: '8px', fontSize: '13px', fontWeight: 700,
@@ -1784,7 +1784,7 @@ const ModalCotizacion = ({
                    <h3 style={{ fontSize: '20px', color: '#002147', fontWeight: 800, margin: 0 }}>¡Solicitud Enviada!</h3>
                    <p style={{ color: '#6B7280', fontSize: '14px', lineHeight: 1.6, margin: '0 0 16px 0' }}>Un asesor se comunicará con usted en menos de 24 horas hábiles.</p>
                    <div style={{ background: '#F3F4F6', padding: '12px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 700, color: '#002147' }}>
-                      📞 313 555 0100 · RR ALIADOS
+                      📞 313 555 0100 · Unidos Fundación Social
                    </div>
                    <button 
                       onClick={() => {
@@ -1891,8 +1891,8 @@ const ContactoSection = ({ form, setForm, loading, setLoading, success, setSucce
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginBottom: '40px' }}>
             {[
-              { icon: Phone, title: "Línea directa", val: "313 555 0100 · RR ALIADOS" },
-              { icon: Mail, title: "Correo institucional", val: "contacto@rraliados.co" },
+              { icon: Phone, title: "Línea directa", val: "313 555 0100 · Unidos Fundación Social" },
+              { icon: Mail, title: "Correo institucional", val: "contacto@unidosfundacionsocial.com" },
               { icon: MapPin, title: "Sede principal", val: "Sogamoso, Boyacá · Colombia" },
               { icon: Clock, title: "Horario de atención", val: "Lunes a viernes · 8:00 am – 6:00 pm" }
             ].map((item, i) => {
@@ -2011,7 +2011,7 @@ const ContactoSection = ({ form, setForm, loading, setLoading, success, setSucce
                   Gracias, {form.nombre}. Nuestro equipo revisará su solicitud y le contactará pronto.
                 </p>
                 <div style={{ color: '#4A5568', fontSize: '13px', fontWeight: 700, background: '#F7F8FA', padding: '12px', borderRadius: '10px', marginBottom: '32px' }}>
-                  📞 313 555 0100 · RR ALIADOS Consulting
+                  📞 313 555 0100 · Unidos Fundación Social
                 </div>
                 <button 
                   onClick={() => {
@@ -2035,6 +2035,7 @@ const ContactoSection = ({ form, setForm, loading, setLoading, success, setSucce
 
 export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
   const [transSection, setTransSection] = useState<string | null>(null);
+  const transContentRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
@@ -2266,7 +2267,7 @@ export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
           <div className="glass-card animate-fade-up" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', borderRadius: '9999px', marginBottom: '24px' }}>
             <Sparkles size={16} color="#C5A059" style={{ animation: 'pulseGold 2s infinite' }} />
             <span style={{ color: '#E8D09A', fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em' }}>
-              TRANSFORMACIÓN DIGITAL B2G · BOYACÁ 2025
+              TRANSFORMACIÓN DIGITAL B2G · BOYACÁ 2026
             </span>
           </div>
 
@@ -2304,9 +2305,7 @@ export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
               <Lock size={18} />
               Acceso Institucional
             </button>
-            <button className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '8px', color: '#E8D09A', fontWeight: 600, fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s ease' }}>
-              Ver Portal Público
-            </button>
+
           </div>
         </div>
 
@@ -2356,7 +2355,7 @@ export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <SecTitle 
             title="Impacto Comprobado en Boyacá" 
-            subtitle="Contratos SECOP II verificados · 2023-2025"
+            subtitle="Contratos SECOP II verificados · 2023-2026"
           />
           
           <div className="cases-grid" style={{ marginTop: '40px' }}>
@@ -2455,7 +2454,7 @@ export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
             texto="¿Quiere que su municipio sea el próximo caso de éxito?" 
             btnLabel="Hablar con un asesor →"
             btnColor="navy"
-            onClick={() => addToast("📞 Le conectaremos con un asesor. Gracias.", "info")}
+            onClick={() => document.getElementById('sec-contacto')?.scrollIntoView({ behavior: 'smooth' })}
           />
         </div>
       </div>
@@ -2501,7 +2500,18 @@ export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
                   key={i} 
                   className="trans-card animate-fade-up" 
                   style={{ animationDelay: `${i * 0.1}s` }}
-                  onClick={() => setTransSection(transSection === section.id ? null : section.id)}
+                  onClick={() => {
+                    const newId = transSection === section.id ? null : section.id;
+                    setTransSection(newId);
+                    if (newId) {
+                      setTimeout(() => {
+                        if (transContentRef.current) {
+                          const y = transContentRef.current.getBoundingClientRect().top + window.scrollY - 100;
+                          window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }
+                  }}
                 >
                   <ArrowUpRight size={20} className="trans-arrow" />
                   <div className="trans-icon-wrapper" style={{ marginBottom: '16px' }}>
@@ -2523,7 +2533,7 @@ export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
 
           {/* Expanded Panel */}
           {transSection && (
-            <div className="animate-fade-up" style={{ 
+            <div ref={transContentRef} className="animate-fade-up" style={{ 
               background: 'linear-gradient(135deg, #002147 0%, #012D5A 100%)', 
               borderRadius: '16px', 
               padding: '32px', 
@@ -2547,7 +2557,7 @@ export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
             btnColor="outline"
             padding="40px 0 24px 0"
             borderTop="1px solid #EEF0F5"
-            onClick={() => addToast("🔗 Abriendo portal SECOP II... (disponible en versión real)", "info")}
+            onClick={() => window.open('https://www.colombiacompra.gov.co/secop/secop-ii', '_blank', 'noopener,noreferrer')}
           />
         </div>
       </div>
@@ -2956,12 +2966,12 @@ const RadarModule = ({ showToast }: { showToast: (msg: string) => void }) => {
   const COLORS = ['#C5A059', '#002147', '#1A7A4A', '#4A90D9', '#9A7A3A', '#012D5A', '#E5E7EB'];
 
   const trendData = [
-    { mes: 'Ene', analisis: 8, adjudicadas: 6 },
-    { mes: 'Feb', analisis: 12, adjudicadas: 9 },
-    { mes: 'Mar', analisis: 15, adjudicadas: 11 },
-    { mes: 'Abr', analisis: 19, adjudicadas: 14 },
-    { mes: 'May', analisis: 23, adjudicadas: 17 },
-    { mes: 'Jun', analisis: 28, adjudicadas: 22 }
+    { mes: 'Ene', analizadas: 8,  adjudicadas: 5,  tasa: 63 },
+    { mes: 'Feb', analizadas: 14, adjudicadas: 9,  tasa: 64 },
+    { mes: 'Mar', analizadas: 11, adjudicadas: 8,  tasa: 73 },
+    { mes: 'Abr', analizadas: 19, adjudicadas: 15, tasa: 79 },
+    { mes: 'May', analizadas: 16, adjudicadas: 13, tasa: 81 },
+    { mes: 'Jun', analizadas: 24, adjudicadas: 20, tasa: 83 },
   ];
 
   const getScoreColor = (score: number) => {
@@ -3170,44 +3180,38 @@ const RadarModule = ({ showToast }: { showToast: (msg: string) => void }) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <h3 style={{ margin: 0, color: '#00163A', fontSize: '16px', fontWeight: 800 }}>Tendencia de Análisis vs Adjudicaciones</h3>
-            <p style={{ margin: '4px 0 0 0', color: '#6B7280', fontSize: '13px' }}>Evolución del pipeline de licitaciones (Ene - Jun 2025)</p>
-          </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '2px', backgroundColor: '#00163A' }} />
-              <span style={{ fontSize: '12px', fontWeight: 600, color: '#4B5563' }}>Analizadas</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '2px', backgroundColor: '#C5A059' }} />
-              <span style={{ fontSize: '12px', fontWeight: 600, color: '#4B5563' }}>Adjudicadas</span>
-            </div>
+            <p style={{ margin: '4px 0 0 0', color: '#6B7280', fontSize: '13px' }}>Evolución del pipeline de licitaciones (Ene - Jun 2026)</p>
           </div>
         </div>
         <div style={{ height: '300px', width: '100%' }}>
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <defs>
-                <linearGradient id="colorAnalisis" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00163A" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#00163A" stopOpacity={0}/>
-                </linearGradient>
-                <linearGradient id="colorAdjudicadas" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#C5A059" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#C5A059" stopOpacity={0}/>
-                </linearGradient>
-              </defs>
+            <ComposedChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
               <XAxis dataKey="mes" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} dy={10} />
-              <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} />
+              <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} />
+              <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#00163A', border: '1px solid rgba(197,160,89,0.2)', borderRadius: '8px', color: '#FFFFFF' }}
+                contentStyle={{ background: '#00163A', border: '1px solid rgba(197,160,89,0.3)', borderRadius: '10px' }}
                 itemStyle={{ color: '#FFFFFF', fontWeight: 600 }}
                 labelStyle={{ color: '#C5A059', fontWeight: 700, marginBottom: '4px' }}
+                formatter={(value: any, name: any) => {
+                  if (name === 'tasa') return [`${value}%`, 'Tasa de éxito'];
+                  if (name === 'analizadas') return [value, 'Licitaciones analizadas'];
+                  if (name === 'adjudicadas') return [value, 'Contratos adjudicados'];
+                  return [value, name];
+                }}
               />
-              <Area type="monotone" dataKey="analisis" name="Analizadas" stroke="#00163A" strokeWidth={3} fillOpacity={1} fill="url(#colorAnalisis)" />
-              <Area type="monotone" dataKey="adjudicadas" name="Adjudicadas" stroke="#C5A059" strokeWidth={3} fillOpacity={1} fill="url(#colorAdjudicadas)" />
-            </AreaChart>
+              <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', fontWeight: 600, color: '#4B5563', paddingTop: '10px' }} />
+              <Bar yAxisId="left" dataKey="analizadas" name="Analizadas" fill="rgba(0, 33, 71, 0.6)" barSize={20} radius={[4,4,0,0]} />
+              <Line yAxisId="left" type="monotone" dataKey="adjudicadas" name="Adjudicadas" stroke="#C5A059" strokeWidth={3} dot={{ r: 4, fill: '#C5A059', strokeWidth: 2, stroke: '#FFFFFF' }} activeDot={{ r: 6 }} />
+              <Line yAxisId="right" type="monotone" dataKey="tasa" name="Tasa de Éxito" stroke="#1A7A4A" strokeWidth={2} strokeDasharray="4 4" dot={false} activeDot={{ r: 4 }} />
+            </ComposedChart>
           </ResponsiveContainer>
+        </div>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '8px' }}>
+          <div style={{ background: 'rgba(0,33,71,0.06)', color: '#002147', padding: '6px 14px', borderRadius: '8px', fontSize: '12px', fontWeight: 700 }}>24 licitaciones analizadas en Jun</div>
+          <div style={{ background: 'rgba(197,160,89,0.12)', color: '#9A7A3A', padding: '6px 14px', borderRadius: '8px', fontSize: '12px', fontWeight: 700 }}>20 contratos adjudicados</div>
+          <div style={{ background: 'rgba(26,122,74,0.1)', color: '#1A7A4A', padding: '6px 14px', borderRadius: '8px', fontSize: '12px', fontWeight: 700 }}>83% tasa de éxito</div>
         </div>
       </Card>
     </div>
@@ -3276,8 +3280,159 @@ const CRMModule = ({ showToast }: { showToast: (msg: string) => void }) => {
     { municipio: 'Chiquinquirá', contactos: 8 }
   ];
 
+  const licitacionesEnCurso = [
+    {
+      id: "BOY-2025-098",
+      nombre: "Giro Boyacá Convivencia 2026",
+      entidad: "Gobernación Boyacá",
+      etapa: "Elaboración de oferta",
+      etapaNum: 3,
+      totalEtapas: 5,
+      cierre: "3 días",
+      valor: "$1.2B",
+      responsable: "Patricia Niño",
+      urgencia: "CRÍTICO",
+      color: "#991B1B"
+    },
+    {
+      id: "DUI-2025-089",
+      nombre: "Atención Psicosocial Duitama",
+      entidad: "Alcaldía Duitama",
+      etapa: "Revisión de adenda",
+      etapaNum: 2,
+      totalEtapas: 5,
+      cierre: "5 días",
+      valor: "$420M",
+      responsable: "Carlos Amaya",
+      urgencia: "URGENTE",
+      color: "#D97706"
+    },
+    {
+      id: "SOG-2025-034",
+      nombre: "Suministros Comisarías Norte",
+      entidad: "Municipios Provincia Norte",
+      etapa: "Oferta lista para envío",
+      etapaNum: 4,
+      totalEtapas: 5,
+      cierre: "7 días",
+      valor: "$185M",
+      responsable: "Gloria Morales",
+      urgencia: "EN TIEMPO",
+      color: "#1A7A4A"
+    },
+    {
+      id: "TUN-2025-067",
+      nombre: "Escuelas de Convivencia Tunja",
+      entidad: "Alcaldía Tunja",
+      etapa: "Análisis de pliego",
+      etapaNum: 1,
+      totalEtapas: 5,
+      cierre: "18 días",
+      valor: "$310M",
+      responsable: "Jairo Cárdenas",
+      urgencia: "EN TIEMPO",
+      color: "#1A7A4A"
+    },
+  ];
+
   return (
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* ROW 0: Seguimiento Activo */}
+      <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: '28px', boxShadow: '0 4px 24px rgba(0,33,71,0.08)', border: '1px solid rgba(0,33,71,0.06)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <div>
+            <h3 style={{ margin: 0, color: '#00163A', fontSize: '18px', fontWeight: 800 }}>Licitaciones en Curso · Seguimiento Activo</h3>
+            <p style={{ margin: '4px 0 0 0', color: '#6B7280', fontSize: '13px' }}>Procesos con participación activa de la fundación en este momento</p>
+          </div>
+          <div style={{ background: 'rgba(197,160,89,0.15)', color: '#9A7A3A', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 700 }}>
+            4 activas
+          </div>
+        </div>
+        <GoldLine />
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '16px', marginTop: '24px' }}>
+          {licitacionesEnCurso.map((item, idx) => {
+            const isCriticalOrWarning = parseInt(item.cierre.split(' ')[0]) <= 5;
+            const initials = (item.responsable.split(' ')[0][0] + (item.responsable.split(' ')[1] ? item.responsable.split(' ')[1][0] : '')).toUpperCase();
+            const urgBgs: Record<string, string> = { 'CRÍTICO': 'rgba(153,27,27,0.1)', 'URGENTE': 'rgba(217,119,6,0.1)', 'EN TIEMPO': 'rgba(26,122,74,0.1)' };
+            const urgColors: Record<string, string> = { 'CRÍTICO': '#991B1B', 'URGENTE': '#D97706', 'EN TIEMPO': '#1A7A4A' };
+            
+            return (
+              <div 
+                key={idx} 
+                style={{ 
+                  border: '1px solid #E5E7EB', borderRadius: '12px', padding: '16px 20px', 
+                  borderLeft: `4px solid ${item.color}`, transition: 'all 0.2s', backgroundColor: '#FFFFFF' 
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,33,71,0.1)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)' }}
+              >
+                {/* FILA 1 */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span style={{ fontFamily: 'monospace', fontSize: '10px', color: '#9CA3AF' }}>{item.id}</span>
+                  <span style={{ backgroundColor: urgBgs[item.urgencia], color: urgColors[item.urgencia], padding: '2px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 800 }}>
+                    {item.urgencia}
+                  </span>
+                </div>
+                
+                {/* FILA 2 */}
+                <div style={{ fontSize: '14px', fontWeight: 800, color: '#002147', lineHeight: 1.3, marginBottom: '4px' }}>
+                  {item.nombre}
+                </div>
+                
+                {/* FILA 3 */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '16px' }}>
+                  <Building2 size={10} color="#6B7280" />
+                  <span style={{ fontSize: '12px', color: '#6B7280' }}>{item.entidad}</span>
+                </div>
+                
+                {/* FILA 4 */}
+                <div style={{ marginBottom: '16px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                    <span style={{ fontSize: '9px', textTransform: 'uppercase', color: '#9CA3AF', fontWeight: 700 }}>ETAPA ACTUAL</span>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: item.color }}>{item.etapa}</span>
+                  </div>
+                  <div style={{ height: '6px', borderRadius: '3px', backgroundColor: '#E5E7EB', overflow: 'hidden', marginBottom: '4px' }}>
+                    <div style={{ width: `${(item.etapaNum / item.totalEtapas) * 100}%`, height: '100%', backgroundColor: item.color, borderRadius: '3px' }} />
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#9CA3AF', textAlign: 'right', fontWeight: 500 }}>
+                    Paso {item.etapaNum} de {item.totalEtapas}
+                  </div>
+                </div>
+                
+                {/* FILA 5 */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #E5E7EB' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: isCriticalOrWarning ? '#991B1B' : '#6B7280', fontSize: '11px', fontWeight: 700 }}>
+                    <Clock size={12} /> Cierre en {item.cierre}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#C5A059', fontSize: '12px', fontWeight: 700 }}>
+                    <Target size={12} /> {item.valor}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'linear-gradient(135deg, #002147 0%, #012D5A 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF', fontSize: '9px', fontWeight: 800 }}>
+                      {initials}
+                    </div>
+                    <span style={{ fontSize: '11px', color: '#6B7280', fontWeight: 600 }}>{item.responsable.split(' ')[0]}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        
+        {/* Footer Grid CTA */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '24px' }}>
+          <button 
+            onClick={() => showToast("Redirigiendo al módulo Radar de Licitaciones...")} 
+            style={{ border: '1px solid rgba(197,160,89,0.4)', background: 'transparent', color: '#C5A059', fontSize: '13px', fontWeight: 700, padding: '8px 18px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(197,160,89,0.05)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+          >
+            Ver todas en el Radar →
+          </button>
+        </div>
+      </div>
+
       {/* ROW 1: KPIs */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
         <MetricCard 
@@ -4216,8 +4371,8 @@ export const Dashboard = ({ onLogout }: { onLogout: () => void }) => {
           
           {/* Footer */}
           <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#6B7280', flexWrap: 'wrap', gap: '16px' }}>
-            <span>© 2025 Unidos Fundación Social · NIT 901.234.567-8 · Sogamoso, Boyacá</span>
-            <span style={{ fontWeight: 600 }}>v2.0 · Prototipo Institucional</span>
+            <span>© 2026 Unidos Fundación Social · NIT 901.234.567-8 · Sogamoso, Boyacá</span>
+            <span style={{ fontWeight: 600 }}>v2.3 · Prototipo Institucional</span>
             <span style={{ fontWeight: 600, color: '#00163A' }}>Desarrollado por RR ALIADOS</span>
           </div>
         </div>
