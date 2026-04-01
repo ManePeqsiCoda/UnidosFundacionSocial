@@ -2557,7 +2557,7 @@ export const PublicLanding = ({ onLogin }: { onLogin: () => void }) => {
             btnColor="outline"
             padding="40px 0 24px 0"
             borderTop="1px solid #EEF0F5"
-            onClick={() => window.open('https://www.colombiacompra.gov.co/secop/secop-ii', '_blank', 'noopener,noreferrer')}
+            onClick={() => window.open('https://community.secop.gov.co/STS/Users/Login/Index?SkinName=CCE', '_blank', 'noopener,noreferrer')}
           />
         </div>
       </div>
@@ -2715,7 +2715,7 @@ export const LoginScreen = ({ onSuccess, onBack }: { onSuccess: () => void, onBa
               "⚡ Análisis IA de pliegos en minutos",
               "🛡️ Blindaje jurídico Ley 1712",
               "📡 Radar SECOP II en tiempo real",
-              "🏆 94% tasa de adjudicación"
+              "🏆 % tasa de adjudicación"
             ].map((feature, i) => (
               <div key={i} className="animate-fade-up" style={{ display: 'flex', alignItems: 'center', gap: '12px', animationDelay: `${i * 0.1}s` }}>
                 <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'rgba(197,160,89,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C5A059', fontSize: '12px' }}>
