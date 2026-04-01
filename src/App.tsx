@@ -869,7 +869,7 @@ const EventosSection = ({ onCtaClick }: any) => {
   const { count: countContratos, ref: refContratos } = useCountUp(100);
 
   return (
-    <div className="reveal-hidden" style={{ background: '#FFFFFF', padding: '64px 80px' }}>
+    <div id="sec-eventos" className="reveal-hidden" style={{ background: '#FFFFFF', padding: '64px 80px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(197,160,89,0.1)', padding: '6px 16px', borderRadius: '9999px', marginBottom: '16px' }}>
